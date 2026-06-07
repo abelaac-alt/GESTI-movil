@@ -1,23 +1,22 @@
 {
-  "name": "Finanzas",
-  "short_name": "Finanzas",
-  "description": "Aplicación personal de finanzas",
-  "start_url": "/Finanzas-personales/",
-  "scope": "/Finanzas-personales/",
+  "name": "GESTIMOVIL",
+  "short_name": "GESTIMOVIL",
+  "description": "Aplicación para gestionar vehículos, mantenimientos, combustible, gastos fijos, extras e historial.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f5f4f0",
-  "theme_color": "#0d0d0d",
-  "lang": "es",
+  "background_color": "#050505",
+  "theme_color": "#050505",
   "icons": [
     {
-      "src": "/Finanzas-personales/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/Finanzas-personales/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
