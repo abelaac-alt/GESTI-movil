@@ -61,7 +61,86 @@ body.light .btn.red{background:var(--red);color:#260406}
 <section id="maintenance" class="screen"><h1>Mantenimientos</h1><div class="card"><h2 style="margin-top:0">Activos del vehículo</h2><div id="activeList"></div></div><div class="card"><h2 style="margin-top:0">Activar mantenimiento</h2><div id="templateList"></div></div><div class="card"><h2 style="margin-top:0">Otros / averías</h2><p class="muted">Para averías o trabajos no periódicos.</p><button class="btn primary" id="registerOther">Registrar otros</button></div></section>
 <section id="fuel" class="screen"><h1 id="fuelScreenTitle">Combustible</h1><div class="card"><h2 style="margin-top:0">Registrar repostaje</h2><label>Fecha</label><input id="fuelDate" type="date"><label>Kilómetros actuales opcional</label><input id="fuelKm" type="number" placeholder="Opcional"><label id="fuelAmountLabel">Litros repostados</label><input id="fuelLiters" type="number" step="0.01"><label>Coste total €</label><input id="fuelCost" type="number" step="0.01"><div class="mini"><div class="muted" id="fuelCalculatedLabel">Coste por litro calculado</div><div class="big" id="fuelPriceLiter">0,000 €/L</div></div><button class="btn primary" id="addFuel">Guardar repostaje</button></div><div class="grid"><div class="mini"><div class="muted" id="fuelTotalLabel">Total combustible</div><div class="big" id="fuelTotal">0,00 €</div></div><div class="mini"><div class="muted" id="fuelAmountTotalLabel">Litros totales</div><div class="big" id="fuelLitersTotal">0 L</div></div></div><div class="card" id="fuelListCard"><div id="fuelList"></div></div></section>
 <section id="fixed" class="screen"><h1>Fijos</h1><div class="card"><h2 style="margin-top:0">Añadir gasto fijo</h2><label>Fecha de inicio</label><input id="fixedStartDate" type="date"><label>Fecha final / vencimiento</label><input id="fixedDate" type="date"><label>Tipo</label><select id="fixedType"><option>Seguro</option><option>ITV</option><option>Cuota del vehículo</option><option>Impuesto de circulación</option><option>Garaje</option><option>Asistencia en carretera</option><option>Suscripción / conectividad</option><option>Otros fijos</option></select><label>Concepto</label><input id="fixedConcept"><label>Importe €</label><input id="fixedAmount" type="number" step="0.01"><label>Periodicidad</label><select id="fixedPeriod"><option>Único</option><option>Mensual</option><option>Trimestral</option><option>Semestral</option><option>Anual</option></select><div class="muted" style="font-size:14px;margin-top:6px">La fecha final se calcula automáticamente según la periodicidad seleccionada.</div><label style="display:flex;align-items:center;gap:10px;margin-top:16px"><input id="fixedAutoRenew" type="checkbox" style="width:auto;transform:scale(1.25)"> Renovación automática</label><div class="muted" style="font-size:14px;margin-top:4px">Si está activada, al vencer se registra en historial y se genera el siguiente período automáticamente.</div><button class="btn primary" id="addFixed">Guardar gasto fijo</button><div id="fixedSaveStatus" class="muted"></div></div><div class="grid"><div class="mini"><div class="muted">Total fijos</div><div class="big" id="fixedTotal">0,00 €</div></div><div class="mini"><div class="muted">Registros</div><div class="big" id="fixedCount">0</div></div></div><div class="card"><h2 style="margin-top:0">Listado de fijos</h2><div id="fixedList"></div></div></section>
-<section id="extras" class="screen"><h1>Extras</h1><div class="card"><div class="row"><div><h2 style="margin:0">Aplicaciones</h2><div class="muted">Herramientas útiles para planificar y controlar mejor tu vehículo.</div></div><div class="badge ok">⭐</div></div><div class="extrasGrid" style="margin-top:16px"><div class="item extrasApp activeCard" id="openTripCalculator"><div class="row"><div class="extrasIcon">🧮</div><div style="flex:1"><b>Calculadora de viaje</b><div class="muted">Calcula combustible, recarga y coste por distancia o destino.</div></div><span class="appPill">Disponible</span></div></div><div class="item extrasApp"><div class="row"><div class="extrasIcon">📍</div><div style="flex:1"><b>Rutas guardadas</b><div class="muted">Próximamente: guarda viajes habituales y compara costes.</div></div><span class="appPill">Próximamente</span></div></div><div class="item extrasApp"><div class="row"><div class="extrasIcon">📊</div><div style="flex:1"><b>Comparador de costes</b><div class="muted">Próximamente: compara gasto real frente a estimado.</div></div><span class="appPill">Próximamente</span></div></div></div></div><div class="card" id="tripCalculatorCard"><h2 style="margin-top:0">Calculadora de viaje</h2><p class="muted" id="tripIntro">Calcula el coste estimado usando el consumo del vehículo y el precio medio del último repostaje o recarga.</p><label>Calcular por kilómetros</label><input id="tripKm" type="number" step="0.1" placeholder="Ej. 350"><div class="grid"><div><label>Origen exacto</label><input id="tripOrigin" placeholder="Ej. Calle Mayor 1, Madrid"></div><div><label>Destino exacto</label><input id="tripDestination" placeholder="Ej. Valencia, España"></div></div><div class="actions"><button class="btn" id="useCurrentLocation">Usar mi ubicación como origen</button><button class="btn" id="useLocationRoute">Calcular ruta exacta</button><button class="btn primary" id="calcTrip">Calcular gasto</button></div><div id="tripStatus" class="muted" style="margin-top:10px"></div><div id="tripResult" class="grid" style="margin-top:14px"></div><div id="tripSimulation"></div></div><div class="card"><h2 style="margin-top:0">Datos usados</h2><div id="tripVehicleData"></div><button class="btn" id="editConsumptionFromExtras" style="margin-top:12px">Editar consumo del vehículo</button></div></section>
+<section id="extras" class="screen"><h1>Extras</h1>
+  <div class="card">
+    <div class="row">
+      <div>
+        <h2 style="margin:0">Aplicaciones</h2>
+        <div class="muted">Herramientas útiles para planificar y controlar mejor tu vehículo.</div>
+      </div>
+      <div class="badge ok">⭐</div>
+    </div>
+
+    <div class="extrasGrid" style="margin-top:16px">
+      <div class="item extrasApp activeCard" id="openTripCalculator">
+        <div class="row extrasAppHeader">
+          <div class="extrasIcon">🧮</div>
+          <div style="flex:1">
+            <b>Calculadora de viaje</b>
+            <div class="muted">Calcula combustible, recarga y coste por kilómetros o ruta exacta.</div>
+          </div>
+          <span class="appPill">Abrir</span>
+        </div>
+
+        <div class="extrasAppBody collapse" id="tripCalculatorBody">
+          <p class="muted" id="tripIntro">Calcula el coste estimado usando el consumo del vehículo y el precio medio del último repostaje o recarga.</p>
+
+          <label>Calcular por kilómetros</label>
+          <input id="tripKm" type="number" step="0.1" placeholder="Ej. 350">
+
+          <div class="grid">
+            <div>
+              <label>Dirección de inicio</label>
+              <input id="tripOrigin" placeholder="Ej. Calle Mayor 1, Madrid">
+            </div>
+            <div>
+              <label>Dirección final</label>
+              <input id="tripDestination" placeholder="Ej. Valencia, España">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="useCurrentLocation">Usar ubicación actual como inicio</button>
+            <button class="btn" id="useLocationRoute">Calcular ruta exacta</button>
+            <button class="btn primary" id="calcTrip">Calcular gasto</button>
+          </div>
+
+          <div id="tripStatus" class="muted" style="margin-top:10px"></div>
+          <div id="tripResult" class="grid" style="margin-top:14px"></div>
+          <div id="tripSimulation"></div>
+
+          <div class="mini" style="margin-top:16px">
+            <b>Datos usados</b>
+            <div id="tripVehicleData" style="margin-top:10px"></div>
+            <button class="btn" id="editConsumptionFromExtras" style="margin-top:12px;width:100%">Editar consumo del vehículo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="item extrasApp">
+        <div class="row extrasAppHeader">
+          <div class="extrasIcon">📍</div>
+          <div style="flex:1">
+            <b>Rutas guardadas</b>
+            <div class="muted">Próximamente: guarda viajes habituales y compara costes.</div>
+          </div>
+          <span class="appPill">Próximamente</span>
+        </div>
+      </div>
+
+      <div class="item extrasApp">
+        <div class="row extrasAppHeader">
+          <div class="extrasIcon">📊</div>
+          <div style="flex:1">
+            <b>Comparador de costes</b>
+            <div class="muted">Próximamente: compara gasto real frente a estimado.</div>
+          </div>
+          <span class="appPill">Próximamente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="history" class="screen"><h1>Historial</h1><div class="card"><div class="filters"><input id="histFrom" type="date"><input id="histTo" type="date"><select id="histType"><option value="">Todos</option><option>Mantenimiento</option><option>Gasto fijo</option><option>Otros / avería</option></select><input id="histSearch" placeholder="Buscar"></div><button class="btn" id="clearFilters" style="margin-top:10px">Limpiar filtros</button></div><div id="historyList"></div></section>
 </div><nav class="nav"><div class="nav-inner"><button data-screen="maintenance"><span class="ico">🔧</span>Mantenimientos</button><button data-screen="fuel"><span class="ico" id="fuelNavIcon">⛽</span><span id="fuelNavLabel">Combustible</span></button><button data-screen="fixed"><span class="ico">📌</span>Fijos</button><button data-screen="extras"><span class="ico">⭐</span>Extras</button><button data-screen="history"><span class="ico">📋</span>Historial</button></div></nav><div class="modal" id="modal"><div class="sheet" id="modalContent"></div></div>
 <script>
